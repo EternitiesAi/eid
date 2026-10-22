@@ -80,7 +80,7 @@ implementations that follow the spec give the same answer for the same input.
 | [`vectors/eid-v1.json`](vectors/eid-v1.json) | 73 test vectors, valid and invalid on purpose, from published seeds |
 | [`conformance/`](conformance/) | the runner: point it at your implementation and it tells you whether you conform |
 | [`ts/`](ts/) | the TypeScript reference SDK `@eternities/eid`: zero runtime dependencies, plus the `eid` command |
-| [`go/`](go/) | a small Go verifier with no dependencies outside the standard library, plus `eid-verify` |
+| [`go/`](go/) | a small Go verifier and signer with no dependencies outside the standard library, plus `eid-verify` |
 | [`examples/`](examples/) | the quickstart, and a "sign in with eID" site with a development issuer |
 
 Both implementations pass every vector. The Go verifier was written from the spec, not from the TypeScript code,
