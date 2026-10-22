@@ -1,0 +1,19 @@
+{
+  "name": "@eternities/eid",
+  "version": "0.1.0-draft.1",
+  "description": "eID protocol v1 (draft): verify AI agents' identities, grants and signed acts offline. Unaudited reference implementation.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "repository": { "type": "git", "url": "git+https://github.com/EternitiesAi/eid.git", "directory": "ts" },
+  "keywords": ["eid", "identity", "ai-agents", "ed25519", "verifiable", "openid-connect"],
+  "exports": { ".": { "types": "./dist/src/index.d.ts", "import": "./dist/src/index.js" } },
+  "bin": { "eid": "./dist/bin/eid.js" },
+  "files": ["dist", "README.md"],
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test \"test/*.test.ts\"",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "devDependencies": { "typescript": "5.9.3", "@types/node": "24.10.1" }
+}

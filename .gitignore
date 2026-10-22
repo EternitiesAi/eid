@@ -1,0 +1,5 @@
+node_modules/
+ts/dist/
+go/eid-verify
+go/eid-verify.exe
+.tmp-*.json
