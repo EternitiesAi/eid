@@ -100,7 +100,12 @@ export interface ActInput {
   /** This relying party's own audience identifier. */
   audience: string;
   now: number;
+  /** Acts this relying party has accepted, keyed by actKey(). Optional: without it, replay is the caller's. */
+  accepted?: { has(key: string): boolean };
 }
+
+/** The key an accepted act is remembered by: its subject and act id, joined by a line feed. */
+export const actKey = (act: { subject: string; act_id: string }) => `${act.subject}\n${act.act_id}`;
 
 /** Decides whether a holder's signed act is good, right now, for this audience. */
 export function verifyAct(input: ActInput): Verdict<Act> {
@@ -136,6 +141,7 @@ export function verifyAct(input: ActInput): Verdict<Act> {
   if (input.now < act.issued_at) return fail('not_yet_valid', 'act');
   if (input.now >= act.expires_at) return fail('expired', 'act');
   if (input.body !== undefined && sha256Hex(input.body) !== act.body_sha256) return fail('body_mismatch');
+  if (input.accepted?.has(actKey(act))) return fail('replayed', 'this act was already accepted');
   return { result: 'valid', payload: act };
 }
 

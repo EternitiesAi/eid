@@ -95,6 +95,8 @@ actCase('wrong-type', 'A grant envelope offered as an act.', 'wrong_type', { act
 actCase('act-for-another-subject', 'The act names a different subject than the admission.', 'mismatch', { act: seal('act', actP({ subject: 'sub-beta' }), K.holder1) });
 actCase('admission-not-disclosed', 'disclosed_ai must be true.', 'invalid_field', { admission: raw('admission', { ...admissionP(), disclosed_ai: false }, K.issuer1) });
 actCase('holder-key-id-mismatch', 'A key_id must be derived from its public key.', 'invalid_field', { admission: raw('admission', admissionP({ holder_keys: [{ key_id: K.holder2.key_id, public_key: K.holder1.public_key }] }), K.issuer1) });
+actCase('act-replayed', 'This relying party already accepted this subject\'s act-1.', 'replayed', { accepted: [{ subject: 'sub-alpha', act_id: 'act-1' }] });
+actCase('other-act-accepted', 'Having accepted a different act id is no reason to refuse this one.', 'valid', { accepted: [{ subject: 'sub-alpha', act_id: 'act-0' }] });
 actCase('payload-too-large', 'A canonical payload is at most 8192 bytes.', 'too_large', { act: { ...act, payload: { ...act.payload, act_id: 'a'.repeat(9000) } } });
 
 // Permits: an issuer-signed, single-use authorisation for one exact operation.

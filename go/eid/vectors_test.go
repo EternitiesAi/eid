@@ -56,6 +56,11 @@ func TestVectors(t *testing.T) {
 		if b, ok := in["body"].(string); ok {
 			ai.Body = []byte(b)
 		}
+		seen := map[string]bool{}
+		for _, x := range arr(in, "accepted") {
+			seen[str(x.(Object), "subject")+"\n"+str(x.(Object), "act_id")] = true
+		}
+		ai.Accepted = func(subject, actID string) bool { return seen[subject+"\n"+actID] }
 		if got, _, _ := VerifyAct(ai); got != str(c, "expect") {
 			t.Errorf("acts/%s: got %s, want %s", str(c, "name"), got, str(c, "expect"))
 		}

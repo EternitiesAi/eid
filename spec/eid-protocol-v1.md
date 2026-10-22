@@ -271,14 +271,17 @@ order:
 10. `now < grant.issued_at`: `not_yet_valid`. `now >= grant.expires_at`: `dormant`.
 11. `now < act.issued_at`: `not_yet_valid`. `now >= act.expires_at`: `expired`.
 12. A body was given and its SHA-256 is not `body_sha256`: `body_mismatch`.
-13. Otherwise: `valid`.
+13. The relying party has already accepted an act with this `subject` and `act_id`: `replayed`.
+14. Otherwise: `valid`.
 
 A relying party MAY allow a small clock skew. The test vectors assume none.
 
 `dormant` and `expired` are different on purpose. An act that expired is spent. An identity that is dormant
 is waiting for its issuer to renew it, and it is the same identity when it wakes.
 
-A relying party SHOULD remember the `act_id`s it has accepted until their acts expire, and refuse a repeat.
+A relying party SHOULD remember each accepted act's `subject` and `act_id` at least until the act expires, and
+record an act as accepted in the same transaction as its effect. Step 13 is how a verifier that is given that memory
+refuses a repeat.
 
 ### 7.5 Verifying a permit
 
@@ -320,7 +323,7 @@ original result rather than perform the effect twice.
 | `not_yet_valid` | a window has not opened |
 | `expired` | a window has closed |
 | `body_mismatch` | the bytes are not the bytes that were signed for |
-| `replayed` | a single-use permit was already consumed |
+| `replayed` | a single-use permit was already consumed, or this act was already accepted |
 
 ## 9. Security considerations
 

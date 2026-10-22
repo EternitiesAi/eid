@@ -29,7 +29,7 @@ What each group asks:
 |---|---|---|
 | `canonical` | `text`: JSON text | `canonical` if the text is exactly canonical (spec section 3), else the result code: `non_canonical` or `malformed` |
 | `signing_input` | `type`, `key_id`, `payload` | the hex of the signing input (spec section 5.1) |
-| `acts` | `input`: `act`, `admission`, `grant`, `issuer`, `trust`, `revocations`, `audience`, `now`, optional `body` (UTF-8 text) | the result of verifying the act (spec section 7.4) |
+| `acts` | `input`: `act`, `admission`, `grant`, `issuer`, `trust`, `revocations`, `audience`, `now`, optional `body` (UTF-8 text), optional `accepted` (acts already accepted, `{subject, act_id}`) | the result of verifying the act (spec section 7.4) |
 | `permits` | `input`: `permit`, `payload` (UTF-8 text), `issuer`, `trust`, `revocations`, `audience`, `now`, `consumed` (permit ids) | the result of verifying the permit (spec section 7.5) |
 | `id_tokens` | `input`: `token`, `jwks`, `issuer`, `audience`, `nonce`, `now` (ms) | `valid` or the result code (`sign-in-with-eid-v1.md` section 4) |
 

@@ -104,6 +104,19 @@ func act(args []string) int {
 	return 1
 }
 
+// acceptedSet turns a vector's accepted acts, [{subject, act_id}], into a lookup.
+func acceptedSet(list []any) func(subject, actID string) bool {
+	seen := map[[2]string]bool{}
+	for _, a := range list {
+		if o, ok := a.(eid.Object); ok {
+			s, _ := o["subject"].(string)
+			id, _ := o["act_id"].(string)
+			seen[[2]string{s, id}] = true
+		}
+	}
+	return func(subject, actID string) bool { return seen[[2]string{subject, actID}] }
+}
+
 // conformance prints this implementation's verdict on every vector (conformance/README.md).
 func conformance(path string) int {
 	root, ok := load(path).(eid.Object)
@@ -148,6 +161,7 @@ func conformance(path string) int {
 		if b, ok := in["body"].(string); ok {
 			ai.Body = []byte(b)
 		}
+		ai.Accepted = acceptedSet(list(in, "accepted"))
 		r, _, _ := eid.VerifyAct(ai)
 		return r
 	})

@@ -128,6 +128,8 @@ type ActInput struct {
 	Revocations                      []any
 	Audience                         string
 	Now                              int64
+	// Accepted reports whether this relying party already accepted an act with this subject and act id. Optional.
+	Accepted func(subject, actID string) bool
 }
 
 // VerifyAct performs spec section 7.4. It returns "valid" and the act's payload, or a result code.
@@ -205,6 +207,9 @@ func VerifyAct(in ActInput) (string, Object, error) {
 		if hex.EncodeToString(h[:]) != str(p, "body_sha256") {
 			return "body_mismatch", nil, nil
 		}
+	}
+	if in.Accepted != nil && in.Accepted(str(p, "subject"), str(p, "act_id")) {
+		return "replayed", nil, nil
 	}
 	return "valid", p, nil
 }

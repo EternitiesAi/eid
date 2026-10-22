@@ -3437,6 +3437,210 @@
       }
     },
     {
+      "name": "act-replayed",
+      "description": "This relying party already accepted this subject's act-1.",
+      "expect": "replayed",
+      "input": {
+        "act": {
+          "eid": "1",
+          "type": "act",
+          "key_id": "key_a6ffeaeeec1ef52f78650367819075d3315acf6c97d0f6189ce1d1cf119501e0",
+          "payload": {
+            "act_id": "act-1",
+            "admission_id": "adm-1",
+            "subject": "sub-alpha",
+            "audience": "site.example",
+            "scope": "post.create",
+            "body_sha256": "21b6c986d3be0a80fc68e0b5b4eb4187894d13ec34849c69fa20d334d90aeae6",
+            "issued_at": 1767398399000,
+            "expires_at": 1767398460000
+          },
+          "signature": "DSvruthDE-f_X9DtFDNK-f62kcwNFYvvtcu-A_zdbp22NASt14VToNmz9OItK8sgGYWQXF7GnrrWKPJ0EqDeAA"
+        },
+        "admission": {
+          "eid": "1",
+          "type": "admission",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "admission_id": "adm-1",
+            "issuer": "eid.example",
+            "subject": "sub-alpha",
+            "holder_keys": [
+              {
+                "key_id": "key_a6ffeaeeec1ef52f78650367819075d3315acf6c97d0f6189ce1d1cf119501e0",
+                "public_key": "OYGDZYcksknfgHgLJ5jahFx2hhm0U9r7055uQqH3guQ"
+              }
+            ],
+            "disclosed_ai": true,
+            "issued_at": 1767312000000,
+            "expires_at": 1769904000000
+          },
+          "signature": "W6i-xLDgnp2TyBrSZj4cr_yG6dAP7nPL5YaLsuM4r4EZcVFbUvM2mSxlt65wXUUysbOjrlo5NrlkUIw1pL6hDQ"
+        },
+        "grant": {
+          "eid": "1",
+          "type": "grant",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "grant_id": "grant-1",
+            "issuer": "eid.example",
+            "admission_id": "adm-1",
+            "subject": "sub-alpha",
+            "audience": "site.example",
+            "scopes": [
+              "post.create",
+              "space.join"
+            ],
+            "issued_at": 1767312000000,
+            "expires_at": 1767916800000
+          },
+          "signature": "lMxIzplzrWP77Z4OBOSQVPqoRDDpQPllxoHq3O7LjpZQk6-5jYxBQNoByhg4mGNO75iJwAarknTgFMjqUbYhBw"
+        },
+        "issuer": {
+          "eid": "1",
+          "type": "issuer",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "issuer": "eid.example",
+            "keys": [
+              {
+                "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+                "public_key": "dHXJWSid6-RE3PBqs8t0fpfJOhFG2wVqOQVS9xzvzC0",
+                "not_before": 1767225600000,
+                "not_after": 1798761600000
+              },
+              {
+                "key_id": "key_2c1f22f7971fb8c7a05e0b093a4098ec6e15b0cfd952bb83b10501b5c43d11fd",
+                "public_key": "eVxwnSREXoZh-r4qNYH-OeIwDFgPpsLSvK5LtsLk1ls",
+                "not_before": 1768089600000,
+                "not_after": 1799625600000
+              }
+            ],
+            "issued_at": 1767225600000,
+            "expires_at": 1798761600000
+          },
+          "signature": "TujsFqQ5kdsj0b9uH8Sh_6xI1OlaVqgrZFZpaLzKSXEwYvzunrubF2O5959Nni9w0aS1zppgj8Qlv4z8sFr_Dg"
+        },
+        "trust": {
+          "issuer": "eid.example",
+          "anchors": [
+            "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314"
+          ]
+        },
+        "revocations": [],
+        "audience": "site.example",
+        "now": 1767398400000,
+        "accepted": [
+          {
+            "subject": "sub-alpha",
+            "act_id": "act-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "other-act-accepted",
+      "description": "Having accepted a different act id is no reason to refuse this one.",
+      "expect": "valid",
+      "input": {
+        "act": {
+          "eid": "1",
+          "type": "act",
+          "key_id": "key_a6ffeaeeec1ef52f78650367819075d3315acf6c97d0f6189ce1d1cf119501e0",
+          "payload": {
+            "act_id": "act-1",
+            "admission_id": "adm-1",
+            "subject": "sub-alpha",
+            "audience": "site.example",
+            "scope": "post.create",
+            "body_sha256": "21b6c986d3be0a80fc68e0b5b4eb4187894d13ec34849c69fa20d334d90aeae6",
+            "issued_at": 1767398399000,
+            "expires_at": 1767398460000
+          },
+          "signature": "DSvruthDE-f_X9DtFDNK-f62kcwNFYvvtcu-A_zdbp22NASt14VToNmz9OItK8sgGYWQXF7GnrrWKPJ0EqDeAA"
+        },
+        "admission": {
+          "eid": "1",
+          "type": "admission",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "admission_id": "adm-1",
+            "issuer": "eid.example",
+            "subject": "sub-alpha",
+            "holder_keys": [
+              {
+                "key_id": "key_a6ffeaeeec1ef52f78650367819075d3315acf6c97d0f6189ce1d1cf119501e0",
+                "public_key": "OYGDZYcksknfgHgLJ5jahFx2hhm0U9r7055uQqH3guQ"
+              }
+            ],
+            "disclosed_ai": true,
+            "issued_at": 1767312000000,
+            "expires_at": 1769904000000
+          },
+          "signature": "W6i-xLDgnp2TyBrSZj4cr_yG6dAP7nPL5YaLsuM4r4EZcVFbUvM2mSxlt65wXUUysbOjrlo5NrlkUIw1pL6hDQ"
+        },
+        "grant": {
+          "eid": "1",
+          "type": "grant",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "grant_id": "grant-1",
+            "issuer": "eid.example",
+            "admission_id": "adm-1",
+            "subject": "sub-alpha",
+            "audience": "site.example",
+            "scopes": [
+              "post.create",
+              "space.join"
+            ],
+            "issued_at": 1767312000000,
+            "expires_at": 1767916800000
+          },
+          "signature": "lMxIzplzrWP77Z4OBOSQVPqoRDDpQPllxoHq3O7LjpZQk6-5jYxBQNoByhg4mGNO75iJwAarknTgFMjqUbYhBw"
+        },
+        "issuer": {
+          "eid": "1",
+          "type": "issuer",
+          "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+          "payload": {
+            "issuer": "eid.example",
+            "keys": [
+              {
+                "key_id": "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314",
+                "public_key": "dHXJWSid6-RE3PBqs8t0fpfJOhFG2wVqOQVS9xzvzC0",
+                "not_before": 1767225600000,
+                "not_after": 1798761600000
+              },
+              {
+                "key_id": "key_2c1f22f7971fb8c7a05e0b093a4098ec6e15b0cfd952bb83b10501b5c43d11fd",
+                "public_key": "eVxwnSREXoZh-r4qNYH-OeIwDFgPpsLSvK5LtsLk1ls",
+                "not_before": 1768089600000,
+                "not_after": 1799625600000
+              }
+            ],
+            "issued_at": 1767225600000,
+            "expires_at": 1798761600000
+          },
+          "signature": "TujsFqQ5kdsj0b9uH8Sh_6xI1OlaVqgrZFZpaLzKSXEwYvzunrubF2O5959Nni9w0aS1zppgj8Qlv4z8sFr_Dg"
+        },
+        "trust": {
+          "issuer": "eid.example",
+          "anchors": [
+            "key_08d84d78bcd2f42d101839cd7bd1fb87e09bd646cd885fba30ebef6112c7d314"
+          ]
+        },
+        "revocations": [],
+        "audience": "site.example",
+        "now": 1767398400000,
+        "accepted": [
+          {
+            "subject": "sub-alpha",
+            "act_id": "act-0"
+          }
+        ]
+      }
+    },
+    {
       "name": "payload-too-large",
       "description": "A canonical payload is at most 8192 bytes.",
       "expect": "too_large",

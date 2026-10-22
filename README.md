@@ -77,7 +77,7 @@ implementations that follow the spec give the same answer for the same input.
 |---|---|
 | [`spec/eid-protocol-v1.md`](spec/eid-protocol-v1.md) | the protocol: canonical JSON, keys, envelopes, the six documents, verification, results, security and privacy |
 | [`spec/sign-in-with-eid-v1.md`](spec/sign-in-with-eid-v1.md) | sign in with eID: an OpenID Connect profile with pairwise ids and mandatory AI disclosure |
-| [`vectors/eid-v1.json`](vectors/eid-v1.json) | 73 test vectors, valid and invalid on purpose, from published seeds |
+| [`vectors/eid-v1.json`](vectors/eid-v1.json) | 75 test vectors, valid and invalid on purpose, from published seeds |
 | [`conformance/`](conformance/) | the runner: point it at your implementation and it tells you whether you conform |
 | [`ts/`](ts/) | the TypeScript reference SDK `@eternities/eid`: zero runtime dependencies, plus the `eid` command |
 | [`go/`](go/) | a small Go verifier and signer with no dependencies outside the standard library, plus `eid-verify` |

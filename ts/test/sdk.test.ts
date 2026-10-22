@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { canonical, parseCanonical, EidError } from '../src/canonical.ts';
 import { generateKey, keyFromSeed, keyIdOf } from '../src/keys.ts';
 import { seal, open, signingInput } from '../src/documents.ts';
-import { verifyAct, verifyPermit } from '../src/verify.ts';
+import { verifyAct, verifyPermit, actKey } from '../src/verify.ts';
 import { verifyIdToken } from '../src/signin.ts';
 import { SignIn } from '../src/rp.ts';
 import { startDevIssuer } from '../../examples/sign-in/dev-issuer.ts';
@@ -16,7 +16,7 @@ const code = (f: () => unknown) => { try { f(); return 'ok'; } catch (e) { retur
 test('every vector gives its expected result', () => {
   for (const c of vectors.canonical) assert.equal(code(() => parseCanonical(c.text)) === 'ok' ? 'canonical' : code(() => parseCanonical(c.text)), c.expect, c.name);
   for (const c of vectors.signing_input) assert.equal(signingInput(c.type, c.key_id, c.payload).toString('hex'), c.hex, c.name);
-  for (const c of vectors.acts) assert.equal(verifyAct(c.input).result, c.expect, c.name);
+  for (const c of vectors.acts) assert.equal(verifyAct({ ...c.input, accepted: new Set((c.input.accepted ?? []).map(actKey)) }).result, c.expect, c.name);
   for (const c of vectors.permits) assert.equal(verifyPermit({ ...c.input, consumed: new Set(c.input.consumed) }).result, c.expect, c.name);
   for (const c of vectors.id_tokens) assert.equal(code(() => verifyIdToken(c.input.token, c.input)) === 'ok' ? 'valid' : code(() => verifyIdToken(c.input.token, c.input)), c.expect, c.name);
 });
